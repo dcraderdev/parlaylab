@@ -1,0 +1,176 @@
+---
+import LabLayout from '../layouts/LabLayout.astro';
+
+const legs = [
+  { label: 'Chiefs -3.5', implied: 52.4, fair: 54.0, marketAm: -110, fairAm: -117 },
+  { label: 'Cel/Hea O 218.5', implied: 47.6, fair: 51.2, marketAm: 110, fairAm: -105 },
+  { label: 'Ohtani 1+ HR', implied: 58.3, fair: 60.5, marketAm: -140, fairAm: -153 },
+];
+
+const kpis = [
+  { label: 'Combined odds', value: '+595' },
+  { label: 'True prob', value: '18.6%' },
+  { label: 'Implied prob', value: '14.5%' },
+  { label: 'Edge', value: '+28.2%' },
+  { label: 'EV / $100', value: '+$28.00' },
+  { label: 'Kelly stake', value: '4.7%' },
+];
+---
+<LabLayout
+  title="EV Breakdown — ParlayLab"
+  description="Visualize per-leg probabilities, payout distribution, and fair-vs-market pricing for a demo 3-leg parlay."
+  active="ev"
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">EV Breakdown</p>
+        <h1 class="display text-3xl sm:text-4xl mt-2">The same slip, taken apart.</h1>
+        <p class="text-sm text-lab-slate mt-2 max-w-xl">
+          Three views on one 3-leg parlay. Plain bars. Numbers in mono. Nothing hidden.
+        </p>
+      </div>
+      <span class="tag text-lab-violet">Specimen 01</span>
+    </div>
+
+    <!-- KPI row -->
+    <div class="mt-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 thin-border rounded-md overflow-hidden bg-white">
+      {kpis.map((k, i) => (
+        <div class={`p-4 ${i !== 0 ? 'thin-border-l' : ''}`} style={i !== 0 ? 'border-left: 1px solid var(--color-lab-border)' : ''}>
+          <p class="kpi-label">{k.label}</p>
+          <p class="numeral text-xl mt-1">{k.value}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-8 grid lg:grid-cols-2 gap-6">
+      <!-- Chart 1: per-leg implied probability -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between">
+          <h2 class="display text-lg">Per-leg implied probability</h2>
+          <span class="numeral text-xs text-lab-mute">3 legs</span>
+        </div>
+        <p class="text-xs text-lab-slate mt-1">How likely the market thinks each leg is.</p>
+        <svg viewBox="0 0 480 220" class="w-full mt-4" role="img" aria-label="Bar chart of per-leg implied probability">
+          <defs>
+            <linearGradient id="vgrad" x1="0" x2="1">
+              <stop offset="0" stop-color="#7c3aed"/>
+              <stop offset="1" stop-color="#a855f7"/>
+            </linearGradient>
+          </defs>
+          <!-- axis lines -->
+          {[0, 25, 50, 75, 100].map((v) => (
+            <g>
+              <line x1={140 + (v / 100) * 320} y1="20" x2={140 + (v / 100) * 320} y2="200" stroke="#f1f1f3" stroke-width="1"/>
+              <text x={140 + (v / 100) * 320} y="215" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">{v}%</text>
+            </g>
+          ))}
+          {legs.map((l, i) => {
+            const y = 35 + i * 55;
+            const w = (l.implied / 100) * 320;
+            return (
+              <g>
+                <text x="130" y={y + 18} font-family="Inter" font-size="11" fill="#0a0a0a" text-anchor="end">{l.label}</text>
+                <rect x="140" y={y} width="320" height="28" fill="#f4f4f5"/>
+                <rect x="140" y={y} width={w} height="28" fill="url(#vgrad)"/>
+                <text x={140 + w + 6} y={y + 18} font-family="JetBrains Mono" font-size="11" fill="#0a0a0a">{l.implied.toFixed(1)}%</text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+
+      <!-- Chart 2: payout distribution -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between">
+          <h2 class="display text-lg">Payout distribution</h2>
+          <span class="numeral text-xs text-lab-mute">$100 stake</span>
+        </div>
+        <p class="text-xs text-lab-slate mt-1">Two outcomes. One is rare. One is common.</p>
+        <svg viewBox="0 0 480 240" class="w-full mt-4" role="img" aria-label="Bar chart of payout distribution">
+          <!-- baseline -->
+          <line x1="60" y1="200" x2="460" y2="200" stroke="#e5e7eb" stroke-width="1"/>
+          {[0, 200, 400, 600].map((v, i) => (
+            <g>
+              <line x1="60" y1={200 - i * 50} x2="460" y2={200 - i * 50} stroke="#f1f1f3" stroke-width="1"/>
+              <text x="55" y={203 - i * 50} font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="end">${v}</text>
+            </g>
+          ))}
+
+          <!-- Lose (common): height proxy = small payout 0, but show as bar at zero with thin label -->
+          <g>
+            <rect x="120" y="190" width="100" height="10" fill="#e5e7eb"/>
+            <text x="170" y="180" font-family="JetBrains Mono" font-size="10" fill="#71717a" text-anchor="middle">$0</text>
+            <text x="170" y="220" font-family="Inter" font-size="11" fill="#52525b" text-anchor="middle">Any leg loses</text>
+            <text x="170" y="232" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">85.5% likely</text>
+          </g>
+
+          <!-- Win (rare): payout $695 -->
+          <g>
+            <rect x="280" y="26" width="100" height="174" fill="#7c3aed"/>
+            <text x="330" y="20" font-family="JetBrains Mono" font-size="11" fill="#0a0a0a" text-anchor="middle" font-weight="600">$695</text>
+            <text x="330" y="220" font-family="Inter" font-size="11" fill="#52525b" text-anchor="middle">All 3 hit</text>
+            <text x="330" y="232" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">14.5% likely</text>
+          </g>
+        </svg>
+        <div class="thin-border-t mt-4 pt-3 grid grid-cols-2 gap-3 text-center">
+          <div>
+            <p class="kpi-label">Expected return</p>
+            <p class="numeral text-base text-lab-violet">$128.00</p>
+          </div>
+          <div>
+            <p class="kpi-label">Net EV</p>
+            <p class="numeral text-base">+$28.00</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart 3: fair vs market -->
+      <div class="card p-5 lg:col-span-2">
+        <div class="flex items-center justify-between">
+          <h2 class="display text-lg">Fair price vs. market price</h2>
+          <div class="flex items-center gap-3 text-[11px]">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-lab-slate inline-block"></span>Market</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-lab-violet inline-block"></span>Fair</span>
+          </div>
+        </div>
+        <p class="text-xs text-lab-slate mt-1">Side-by-side per leg. A wider violet bar means you think the leg is more likely than the book.</p>
+
+        <svg viewBox="0 0 720 260" class="w-full mt-4" role="img" aria-label="Side-by-side fair vs market bars for three legs">
+          {[0, 25, 50, 75, 100].map((v) => (
+            <g>
+              <line x1={180 + (v / 100) * 500} y1="20" x2={180 + (v / 100) * 500} y2="230" stroke="#f1f1f3" stroke-width="1"/>
+              <text x={180 + (v / 100) * 500} y="248" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">{v}%</text>
+            </g>
+          ))}
+          {legs.map((l, i) => {
+            const yBase = 30 + i * 70;
+            const wM = (l.implied / 100) * 500;
+            const wF = (l.fair / 100) * 500;
+            return (
+              <g>
+                <text x="170" y={yBase + 14} font-family="Inter" font-size="11" fill="#0a0a0a" text-anchor="end">{l.label}</text>
+                <rect x="180" y={yBase} width="500" height="22" fill="#f4f4f5"/>
+                <rect x="180" y={yBase} width={wM} height="22" fill="#52525b"/>
+                <text x={180 + wM + 6} y={yBase + 15} font-family="JetBrains Mono" font-size="10" fill="#0a0a0a">{l.implied.toFixed(1)}%</text>
+
+                <rect x="180" y={yBase + 26} width="500" height="22" fill="#f5f0ff"/>
+                <rect x="180" y={yBase + 26} width={wF} height="22" fill="#7c3aed"/>
+                <text x={180 + wF + 6} y={yBase + 41} font-family="JetBrains Mono" font-size="10" fill="#0a0a0a">{l.fair.toFixed(1)}%</text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
+
+    <div class="mt-10 thin-border rounded-md p-5 bg-lab-paper">
+      <p class="eyebrow">Reading this slip</p>
+      <p class="text-sm text-lab-slate mt-2 max-w-3xl leading-relaxed">
+        The market prices this parlay at +595 (14.5% implied). Our fair line prices it at +439 (18.6% true).
+        That gap is a +28.2% edge — an expected return of $128 on a $100 stake — and a Kelly recommendation
+        to risk roughly 4.7% of bankroll, not a third of it.
+      </p>
+    </div>
+  </section>
+</LabLayout>

@@ -1,0 +1,167 @@
+---
+import LabLayout from '../layouts/LabLayout.astro';
+---
+<LabLayout
+  title="How to build a parlay — ParlayLab"
+  description="A four-step protocol for building a parlay with implied probability, edge measurement, and Kelly stake sizing."
+  active="build"
+>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+    <p class="eyebrow">Protocol</p>
+    <h1 class="display text-3xl sm:text-4xl mt-2">Build your parlay in four steps.</h1>
+    <p class="text-sm text-lab-slate mt-2 max-w-2xl">
+      A precise, repeatable workflow. Each step has its own measurement. No vibes, only math.
+    </p>
+
+    <!-- STEP 1 -->
+    <article class="mt-10 grid lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-5">
+        <div class="flex items-baseline gap-3">
+          <span class="numeral text-4xl text-lab-violet">01</span>
+          <span class="tag text-lab-slate">Step one</span>
+        </div>
+        <h2 class="display text-2xl mt-3">Pick your legs.</h2>
+        <p class="text-sm text-lab-slate mt-2 leading-relaxed">
+          Choose 2–5 selections you'd consider on their own merit. If you wouldn't bet a leg straight, it doesn't belong in a parlay.
+        </p>
+      </div>
+      <div class="lg:col-span-7 card p-4">
+        <div class="space-y-2">
+          {['Chiefs -3.5', 'Cel/Hea O 218.5', 'Ohtani 1+ HR'].map((p, i) => (
+            <div class="thin-border rounded bg-lab-paper px-3 py-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="numeral text-xs text-lab-violet w-5">L{i + 1}</span>
+                <span class="text-sm font-medium">{p}</span>
+              </div>
+              <span class="numeral text-xs text-lab-mute">selected</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <hr class="my-12 border-t border-lab-border"/>
+
+    <!-- STEP 2 -->
+    <article class="grid lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-5">
+        <div class="flex items-baseline gap-3">
+          <span class="numeral text-4xl text-lab-violet">02</span>
+          <span class="tag text-lab-slate">Step two</span>
+        </div>
+        <h2 class="display text-2xl mt-3">Check implied probabilities.</h2>
+        <p class="text-sm text-lab-slate mt-2 leading-relaxed">
+          Convert each leg's American odds into a percentage. This is what the market thinks. Negative odds
+          → <span class="numeral">|odds| / (|odds| + 100)</span>. Positive odds → <span class="numeral">100 / (odds + 100)</span>.
+        </p>
+      </div>
+      <div class="lg:col-span-7 card p-4">
+        <div class="space-y-3">
+          {[
+            { label: 'Chiefs -3.5', am: '-110', pct: 52.4 },
+            { label: 'Cel/Hea O 218.5', am: '+110', pct: 47.6 },
+            { label: 'Ohtani 1+ HR', am: '-140', pct: 58.3 },
+          ].map((l) => (
+            <div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium">{l.label}</span>
+                <span class="numeral">{l.am} &middot; {l.pct.toFixed(1)}%</span>
+              </div>
+              <div class="mt-1 h-2 rounded-full bg-lab-paper relative overflow-hidden">
+                <div class="absolute inset-y-0 left-0 bg-lab-violet" style={`width: ${l.pct}%`}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <hr class="my-12 border-t border-lab-border"/>
+
+    <!-- STEP 3 -->
+    <article class="grid lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-5">
+        <div class="flex items-baseline gap-3">
+          <span class="numeral text-4xl text-lab-violet">03</span>
+          <span class="tag text-lab-slate">Step three</span>
+        </div>
+        <h2 class="display text-2xl mt-3">See your edge.</h2>
+        <p class="text-sm text-lab-slate mt-2 leading-relaxed">
+          Multiply your fair probabilities to get the true probability of the parlay. Compare to the market's
+          combined implied probability. A positive gap is your edge.
+        </p>
+      </div>
+      <div class="lg:col-span-7 card p-5">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="kpi-label">Market combined</p>
+            <p class="numeral text-2xl mt-1">14.5%</p>
+            <p class="text-[11px] text-lab-mute">+595</p>
+          </div>
+          <div>
+            <p class="kpi-label">Your true</p>
+            <p class="numeral text-2xl mt-1 text-lab-violet">18.6%</p>
+            <p class="text-[11px] text-lab-mute">+439 fair</p>
+          </div>
+        </div>
+        <div class="mt-5">
+          <div class="h-2 rounded-full bg-lab-paper relative overflow-hidden">
+            <div class="absolute inset-y-0 left-0 bg-lab-slate" style="width: 14.5%"></div>
+            <div class="absolute inset-y-0 left-0 bg-lab-violet opacity-80" style="width: 18.6%"></div>
+          </div>
+          <p class="mt-2 numeral text-sm text-lab-violet">Edge: +28.2%</p>
+        </div>
+      </div>
+    </article>
+
+    <hr class="my-12 border-t border-lab-border"/>
+
+    <!-- STEP 4 -->
+    <article class="grid lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-5">
+        <div class="flex items-baseline gap-3">
+          <span class="numeral text-4xl text-lab-violet">04</span>
+          <span class="tag text-lab-slate">Step four</span>
+        </div>
+        <h2 class="display text-2xl mt-3">Decide your stake.</h2>
+        <p class="text-sm text-lab-slate mt-2 leading-relaxed">
+          Use the Kelly criterion to size the bet to your edge. Full Kelly is aggressive — quarter Kelly is sane.
+          The output is a percentage of bankroll, not a fixed dollar amount.
+        </p>
+      </div>
+      <div class="lg:col-span-7 card p-5 bg-lab-violet-wash" style="border-color: var(--color-lab-violet);">
+        <p class="kpi-label">Kelly recommendation</p>
+        <div class="mt-2 grid grid-cols-3 gap-3">
+          <div>
+            <p class="text-[11px] text-lab-slate">Full Kelly</p>
+            <p class="numeral text-xl mt-1">4.7%</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-lab-slate">Half</p>
+            <p class="numeral text-xl mt-1">2.4%</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-lab-slate">Quarter</p>
+            <p class="numeral text-xl mt-1 text-lab-violet">1.2%</p>
+          </div>
+        </div>
+        <p class="text-xs text-lab-slate mt-4 leading-relaxed">
+          On a $1,000 bankroll, that's $47, $24, or $12. Smaller is safer — variance on parlays is severe,
+          and Kelly assumes your fair probabilities are correct.
+        </p>
+      </div>
+    </article>
+
+    <div class="mt-14 card p-6 text-center">
+      <p class="eyebrow">Ready</p>
+      <h2 class="display text-2xl sm:text-3xl mt-2">Run the protocol on a live slip.</h2>
+      <p class="text-sm text-lab-slate mt-2 max-w-xl mx-auto">
+        Open the builder, see the math update per leg, and inspect the EV breakdown for any 3-leg combination.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3 justify-center">
+        <a href="/builder" class="btn-primary">Open the builder</a>
+        <a href="/ev" class="btn-ghost">See EV breakdown</a>
+      </div>
+    </div>
+  </section>
+</LabLayout>

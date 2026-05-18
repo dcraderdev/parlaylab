@@ -1,0 +1,185 @@
+---
+import LabLayout from '../layouts/LabLayout.astro';
+
+const legs = [
+  {
+    n: 1,
+    sport: 'NFL',
+    market: 'Spread',
+    pick: 'Chiefs -3.5',
+    detail: 'vs. Broncos · Sun 4:25p',
+    odds: -110,
+    implied: 52.4,
+    fair: 54.0,
+  },
+  {
+    n: 2,
+    sport: 'NBA',
+    market: 'Total',
+    pick: 'Celtics/Heat Over 218.5',
+    detail: 'Mon 7:30p',
+    odds: 110,
+    implied: 47.6,
+    fair: 51.2,
+  },
+  {
+    n: 3,
+    sport: 'MLB',
+    market: 'Player Prop',
+    pick: 'Ohtani 1+ HR',
+    detail: 'vs. Padres · Sat 7:10p',
+    odds: -140,
+    implied: 58.3,
+    fair: 60.5,
+  },
+];
+---
+<LabLayout
+  title="Builder — ParlayLab"
+  description="Demo parlay builder with three leg slots. See implied probability, combined odds, and your edge update per leg."
+  active="builder"
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">Builder</p>
+        <h1 class="display text-3xl sm:text-4xl mt-2">Three legs. Honest math.</h1>
+        <p class="text-sm text-lab-slate mt-2 max-w-xl">
+          A demonstration slip. Realistic-looking lines, real calculations, no real stakes.
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <span class="tag text-lab-slate">DEMO</span>
+        <span class="tag text-lab-violet">Live math</span>
+      </div>
+    </div>
+
+    <div class="mt-8 grid lg:grid-cols-12 gap-6">
+      <!-- Legs column -->
+      <div class="lg:col-span-7 space-y-4">
+        {legs.map((leg) => (
+          <article class="card p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-full bg-lab-violet-wash flex items-center justify-center thin-border" style="border-color: var(--color-lab-violet);">
+                  <span class="numeral text-sm text-lab-violet">{leg.n}</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="tag text-lab-slate">{leg.sport}</span>
+                    <span class="tag text-lab-slate">{leg.market}</span>
+                  </div>
+                  <h2 class="display text-lg mt-2">{leg.pick}</h2>
+                  <p class="text-xs text-lab-mute mt-0.5">{leg.detail}</p>
+                </div>
+              </div>
+              <button class="btn-ghost text-xs" type="button">Edit leg</button>
+            </div>
+
+            <div class="violet-rule mt-5 pt-4 grid grid-cols-3 gap-3">
+              <div>
+                <p class="kpi-label">Book odds</p>
+                <p class="numeral text-lg">{leg.odds > 0 ? `+${leg.odds}` : leg.odds}</p>
+              </div>
+              <div>
+                <p class="kpi-label">Implied prob</p>
+                <p class="numeral text-lg">{leg.implied.toFixed(1)}%</p>
+              </div>
+              <div>
+                <p class="kpi-label">Fair prob</p>
+                <p class="numeral text-lg text-lab-violet">{leg.fair.toFixed(1)}%</p>
+              </div>
+            </div>
+
+            <!-- per-leg probability bar -->
+            <div class="mt-4">
+              <div class="h-1.5 rounded-full bg-lab-paper relative overflow-hidden">
+                <div class="absolute inset-y-0 left-0 bg-lab-violet" style={`width: ${leg.implied}%`}></div>
+              </div>
+            </div>
+          </article>
+        ))}
+
+        <button type="button" class="w-full thin-border rounded-md py-4 text-sm text-lab-mute hover:text-lab-violet hover:border-lab-violet transition-colors">
+          + Add a 4th leg
+        </button>
+      </div>
+
+      <!-- Summary column -->
+      <aside class="lg:col-span-5 space-y-4">
+        <div class="card p-5">
+          <div class="flex items-center justify-between">
+            <p class="eyebrow">Parlay summary</p>
+            <span class="numeral text-xs text-lab-mute">3 legs</span>
+          </div>
+          <h2 class="display text-2xl mt-2">+595</h2>
+          <p class="text-xs text-lab-mute">combined American odds</p>
+
+          <dl class="mt-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <dt class="kpi-label">Decimal odds</dt>
+              <dd class="numeral text-sm">6.95</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="kpi-label">Implied prob</dt>
+              <dd class="numeral text-sm">14.5%</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="kpi-label">Your stake</dt>
+              <dd class="numeral text-sm">$100</dd>
+            </div>
+            <div class="flex items-center justify-between thin-border-t pt-3">
+              <dt class="kpi-label">To win</dt>
+              <dd class="numeral text-lg text-lab-violet">$595</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="kpi-label">Total payout</dt>
+              <dd class="numeral text-base">$695</dd>
+            </div>
+          </dl>
+
+          <button type="button" class="btn-primary w-full justify-center mt-5">Add to slip</button>
+          <p class="text-[11px] text-lab-mute mt-2 text-center">Demo only · no real wager is placed</p>
+        </div>
+
+        <!-- Edge callout -->
+        <div class="card p-5 bg-lab-violet-wash border-lab-violet" style="border-color: var(--color-lab-violet);">
+          <p class="eyebrow">Your edge</p>
+          <h3 class="display text-xl mt-2">Fair price is sharper than market.</h3>
+
+          <div class="mt-4 space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-lab-slate">Market combined</span>
+                <span class="numeral text-sm">+595 / 14.5%</span>
+              </div>
+              <div class="mt-1 h-1.5 rounded-full bg-white relative overflow-hidden">
+                <div class="absolute inset-y-0 left-0 bg-lab-slate" style="width: 14.5%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-lab-violet font-medium">Your fair combined</span>
+                <span class="numeral text-sm text-lab-violet">+439 / 18.6%</span>
+              </div>
+              <div class="mt-1 h-1.5 rounded-full bg-white relative overflow-hidden">
+                <div class="absolute inset-y-0 left-0 bg-lab-violet" style="width: 18.6%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="violet-rule mt-5 pt-4 grid grid-cols-2 gap-3">
+            <div>
+              <p class="kpi-label">Edge</p>
+              <p class="numeral text-2xl text-lab-violet">+28.2%</p>
+            </div>
+            <div>
+              <p class="kpi-label">EV / $100</p>
+              <p class="numeral text-2xl">+$28</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</LabLayout>
