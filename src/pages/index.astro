@@ -118,34 +118,47 @@ import LabLayout from '../layouts/LabLayout.astro';
     </div>
   </section>
 
-  <!-- Feature triplet -->
+  <!-- Bench protocol — horizontal worked example -->
   <section class="thin-border-t bg-lab-paper">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      <p class="eyebrow">Method</p>
-      <h2 class="display text-2xl sm:text-3xl mt-2 max-w-2xl">Three measurements every slip should carry.</h2>
-      <div class="mt-8 grid sm:grid-cols-3 gap-5">
-        <article class="card p-5">
-          <p class="numeral text-xs text-lab-violet">01</p>
-          <h3 class="display text-lg mt-2">Implied probability</h3>
-          <p class="text-sm text-lab-slate mt-1.5 leading-relaxed">
-            Turn moneylines into percentages. Know what the market thinks before you stack.
-          </p>
-        </article>
-        <article class="card p-5">
-          <p class="numeral text-xs text-lab-violet">02</p>
-          <h3 class="display text-lg mt-2">True odds vs market</h3>
-          <p class="text-sm text-lab-slate mt-1.5 leading-relaxed">
-            Compare your fair line against the book. If you can't draw a difference, there's no edge.
-          </p>
-        </article>
-        <article class="card p-5">
-          <p class="numeral text-xs text-lab-violet">03</p>
-          <h3 class="display text-lg mt-2">Expected value per dollar</h3>
-          <p class="text-sm text-lab-slate mt-1.5 leading-relaxed">
-            Convert edge into dollars. Decide stake with Kelly, not with feelings.
-          </p>
-        </article>
+      <div class="flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <p class="eyebrow">Bench protocol</p>
+          <h2 class="display text-2xl sm:text-3xl mt-2 max-w-2xl">A leg, taken from moneyline to staked dollar.</h2>
+        </div>
+        <p class="hidden sm:block numeral text-xs text-lab-mute">Specimen 02 · Chiefs -3.5 @ -110</p>
       </div>
+
+      <ol class="mt-8 grid grid-cols-1 sm:grid-cols-4 gap-0 thin-border bg-white rounded overflow-hidden">
+        <li class="p-5 sm:border-r border-b sm:border-b-0 border-lab-border">
+          <p class="numeral text-xs text-lab-violet">Step 01 &middot; Read</p>
+          <p class="display text-base mt-2">Moneyline</p>
+          <p class="numeral text-2xl mt-3">-110</p>
+          <p class="text-[11px] text-lab-mute mt-1">book price as listed</p>
+        </li>
+        <li class="p-5 sm:border-r border-b sm:border-b-0 border-lab-border bg-lab-paper">
+          <p class="numeral text-xs text-lab-violet">Step 02 &middot; Convert</p>
+          <p class="display text-base mt-2">Implied %</p>
+          <p class="numeral text-2xl mt-3">52.4%</p>
+          <p class="text-[11px] text-lab-mute mt-1">110 / (110 + 100)</p>
+        </li>
+        <li class="p-5 sm:border-r border-b sm:border-b-0 border-lab-border">
+          <p class="numeral text-xs text-lab-violet">Step 03 &middot; Estimate</p>
+          <p class="display text-base mt-2">Fair %</p>
+          <p class="numeral text-2xl mt-3">55.0%</p>
+          <p class="text-[11px] text-lab-mute mt-1">your model, sims, or both</p>
+        </li>
+        <li class="p-5 bg-lab-paper">
+          <p class="numeral text-xs text-lab-violet">Step 04 &middot; Stake</p>
+          <p class="display text-base mt-2">EV / $100</p>
+          <p class="numeral text-2xl mt-3 text-lab-violet">+$4.76</p>
+          <p class="text-[11px] text-lab-mute mt-1">Kelly suggests 1.8u</p>
+        </li>
+      </ol>
+
+      <p class="mt-4 text-xs text-lab-mute max-w-2xl">
+        Every leg ParlayLab logs walks this same four-step pipe. If the fair price &le; the implied price, the lab refuses to sign off on the slip.
+      </p>
     </div>
   </section>
 
