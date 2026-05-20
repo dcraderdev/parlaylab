@@ -1,0 +1,59 @@
+---
+import LabLayout from '../layouts/LabLayout.astro';
+---
+<LabLayout
+  title="404 — Leg didn't hit · ParlayLab"
+  description="That page isn't on the slate. Head back to the lab and stack a fresh parlay."
+>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 lab-grid pointer-events-none" aria-hidden="true"></div>
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
+      <p class="eyebrow">Bad beat</p>
+
+      <h1
+        class="display mt-4 tracking-tight leading-none text-[7rem] sm:text-[10rem] lg:text-[12rem] text-lab-violet"
+        aria-label="404"
+      >
+        404
+      </h1>
+
+      <h2 class="display text-2xl sm:text-3xl mt-2 tracking-tight">
+        Page not found
+      </h2>
+
+      <p class="mt-5 text-base sm:text-lg text-lab-slate max-w-xl mx-auto leading-relaxed">
+        This leg didn't hit. The page you were looking for isn't on the slate —
+        maybe the URL got mangled, or the link is older than last season's lines.
+        No edge here. Let's stack a fresh one.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3 justify-center">
+        <a href="/" class="btn-primary">
+          Back to home
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="/builder" class="btn-ghost">Open the builder</a>
+      </div>
+
+      <div class="mt-14 grid grid-cols-3 gap-2 sm:gap-4 max-w-md mx-auto" aria-hidden="true">
+        <div class="thin-border bg-white rounded p-3">
+          <p class="kpi-label">Leg 1</p>
+          <p class="numeral text-lg mt-0.5">—</p>
+          <p class="text-[10px] text-lab-mute">void</p>
+        </div>
+        <div class="thin-border bg-white rounded p-3">
+          <p class="kpi-label">Leg 2</p>
+          <p class="numeral text-lg mt-0.5">—</p>
+          <p class="text-[10px] text-lab-mute">void</p>
+        </div>
+        <div class="thin-border bg-white rounded p-3">
+          <p class="kpi-label">Leg 3</p>
+          <p class="numeral text-lg mt-0.5">404</p>
+          <p class="text-[10px] text-lab-mute">missing</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</LabLayout>
