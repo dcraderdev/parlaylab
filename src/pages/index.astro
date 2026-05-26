@@ -3,27 +3,27 @@ import LabLayout from '../layouts/LabLayout.astro';
 ---
 <LabLayout
   title="ParlayLab — Stack legs, measure edge"
-  description="A demo parlay builder with implied probability and expected value calculation. Transparent sports betting math."
+  description="A demo parlay builder with an interactive calculator. Enter American odds, see combined parlay odds and payout in real time."
   active="home"
 >
   <!-- HERO -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 lab-grid pointer-events-none" aria-hidden="true"></div>
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-16 pb-12 sm:pb-20">
-      <div class="grid lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-7">
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div class="lg:col-span-6">
           <p class="eyebrow">Parlay math, made obvious</p>
           <h1 class="display text-4xl sm:text-5xl lg:text-6xl mt-3 tracking-tight">
             Stack legs,<br/>
             <span class="text-lab-violet">measure</span> edge.
           </h1>
           <p class="mt-5 text-base sm:text-lg text-lab-slate max-w-xl leading-relaxed">
-            ParlayLab is a transparent parlay builder. Each leg shows you implied probability,
-            the combined parlay shows true odds against the market, and the EV calculator
-            tells you exactly where the edge is — or isn't.
+            ParlayLab is a transparent parlay builder. Type the American odds for each leg
+            and the calculator on the right gives you the combined line, implied probability,
+            and payout per dollar staked &mdash; in real time, with no markup.
           </p>
           <div class="mt-7 flex flex-wrap gap-3">
-            <a href="/builder" class="btn-primary">Try the builder
+            <a href="#parlay-calc" class="btn-primary">Try the calculator
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -31,87 +31,101 @@ import LabLayout from '../layouts/LabLayout.astro';
             <a href="/ev" class="btn-ghost">See an EV breakdown</a>
           </div>
 
-          <div class="mt-10 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg">
+          <dl class="mt-10 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg">
             <div class="thin-border bg-white rounded p-3">
-              <p class="kpi-label">Leg 1</p>
-              <p class="numeral text-lg mt-0.5">52.4%</p>
-              <p class="text-[10px] text-lab-mute">implied</p>
+              <dt class="kpi-label">Open source</dt>
+              <dd class="numeral text-lg mt-0.5">100%</dd>
+              <p class="text-[10px] text-lab-mute">math is in the page</p>
             </div>
             <div class="thin-border bg-white rounded p-3">
-              <p class="kpi-label">Leg 2</p>
-              <p class="numeral text-lg mt-0.5">47.6%</p>
-              <p class="text-[10px] text-lab-mute">implied</p>
+              <dt class="kpi-label">Stake</dt>
+              <dd class="numeral text-lg mt-0.5">$0</dd>
+              <p class="text-[10px] text-lab-mute">demo only</p>
             </div>
             <div class="thin-border bg-white rounded p-3">
-              <p class="kpi-label">Leg 3</p>
-              <p class="numeral text-lg mt-0.5">58.3%</p>
-              <p class="text-[10px] text-lab-mute">implied</p>
+              <dt class="kpi-label">Legs</dt>
+              <dd class="numeral text-lg mt-0.5">2&ndash;10</dd>
+              <p class="text-[10px] text-lab-mute">add or trim</p>
             </div>
-          </div>
+          </dl>
         </div>
 
-        <!-- Specimen card -->
-        <div class="lg:col-span-5">
-          <div class="card p-5 shadow-[0_4px_30px_-12px_rgba(124,58,237,0.18)] relative">
+        <!-- INTERACTIVE PARLAY CALCULATOR -->
+        <div class="lg:col-span-6">
+          <div id="parlay-calc" class="card p-5 sm:p-6 shadow-[0_4px_30px_-12px_rgba(124,58,237,0.25)] relative scroll-mt-24">
             <div class="flex items-center justify-between">
-              <span class="tag text-lab-violet">Specimen 01</span>
-              <span class="numeral text-xs text-lab-mute">PL-2026-0517</span>
+              <span class="tag text-lab-violet">Live calculator</span>
+              <span class="numeral text-[11px] text-lab-mute" aria-hidden="true">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-lab-violet align-middle mr-1.5 animate-pulse"></span>
+                updating
+              </span>
             </div>
-            <h2 class="display text-lg mt-3">3-Leg Parlay</h2>
+            <h2 class="display text-xl mt-3">Parlay calculator</h2>
+            <p class="text-xs text-lab-slate mt-1">
+              Enter American odds for each leg (e.g. <code class="numeral">-110</code>, <code class="numeral">+200</code>).
+            </p>
 
-            <ol class="mt-4 space-y-2.5">
-              <li class="thin-border rounded bg-lab-paper px-3 py-2.5 flex items-center justify-between">
-                <div>
-                  <p class="text-[11px] kpi-label">NFL · Spread</p>
-                  <p class="text-sm font-medium mt-0.5">Chiefs -3.5</p>
-                </div>
-                <p class="numeral text-sm">-110</p>
-              </li>
-              <li class="thin-border rounded bg-lab-paper px-3 py-2.5 flex items-center justify-between">
-                <div>
-                  <p class="text-[11px] kpi-label">NBA · Total</p>
-                  <p class="text-sm font-medium mt-0.5">Celtics/Heat O 218.5</p>
-                </div>
-                <p class="numeral text-sm">+110</p>
-              </li>
-              <li class="thin-border rounded bg-lab-paper px-3 py-2.5 flex items-center justify-between">
-                <div>
-                  <p class="text-[11px] kpi-label">MLB · Player Prop</p>
-                  <p class="text-sm font-medium mt-0.5">Ohtani 1+ HR</p>
-                </div>
-                <p class="numeral text-sm">-140</p>
-              </li>
-            </ol>
-
-            <!-- Edge meter -->
-            <div class="mt-5">
-              <div class="flex items-center justify-between">
-                <p class="kpi-label">Edge meter</p>
-                <p class="numeral text-sm text-lab-violet">+4.8%</p>
-              </div>
-              <div class="mt-1.5 h-2 rounded-full bg-lab-paper relative overflow-hidden">
-                <div class="absolute inset-y-0 left-0 bg-gradient-to-r from-lab-violet to-lab-violet-bright" style="width: 62%"></div>
-                <div class="absolute inset-y-0" style="left:50%; width:1px; background:#0a0a0a; opacity:0.4"></div>
-              </div>
-              <div class="mt-1 flex justify-between text-[10px] text-lab-mute">
-                <span>-10%</span><span>fair</span><span>+10%</span>
-              </div>
+            <div class="mt-5 space-y-2" data-legs aria-label="Parlay legs">
+              <!-- legs are managed by inline script below -->
             </div>
 
-            <div class="violet-rule mt-5 pt-4 grid grid-cols-3 gap-3">
-              <div>
-                <p class="kpi-label">Combined</p>
-                <p class="numeral text-base">+595</p>
+            <button
+              type="button"
+              data-add
+              class="mt-2 w-full thin-border rounded py-2 text-xs font-medium text-lab-slate hover:text-lab-violet hover:border-lab-violet transition-colors"
+            >
+              + Add leg
+            </button>
+
+            <!-- Stake row -->
+            <div class="violet-rule mt-5 pt-4">
+              <label class="flex items-center justify-between gap-3">
+                <span class="kpi-label">Stake</span>
+                <span class="flex items-center gap-1.5">
+                  <span class="numeral text-sm text-lab-slate">$</span>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    value="100"
+                    data-stake
+                    inputmode="numeric"
+                    class="numeral text-sm w-24 px-2 py-1.5 rounded thin-border text-right focus:border-lab-violet"
+                    aria-label="Stake in dollars"
+                  />
+                </span>
+              </label>
+            </div>
+
+            <!-- Results -->
+            <div class="mt-4 thin-border rounded-md overflow-hidden bg-lab-paper">
+              <div class="grid grid-cols-2 divide-x divide-lab-border">
+                <div class="p-3.5">
+                  <p class="kpi-label">Combined</p>
+                  <p class="numeral text-xl mt-0.5" data-combined aria-live="polite">+595</p>
+                  <p class="text-[10px] text-lab-mute mt-0.5" data-decimal>6.95 dec</p>
+                </div>
+                <div class="p-3.5">
+                  <p class="kpi-label">Implied prob</p>
+                  <p class="numeral text-xl mt-0.5" data-prob aria-live="polite">14.4%</p>
+                  <p class="text-[10px] text-lab-mute mt-0.5">odds of hitting</p>
+                </div>
               </div>
-              <div>
-                <p class="kpi-label">Stake</p>
-                <p class="numeral text-base">$100</p>
-              </div>
-              <div>
-                <p class="kpi-label">Payout</p>
-                <p class="numeral text-base text-lab-violet">$695</p>
+              <div class="thin-border-t bg-white p-3.5 flex items-end justify-between gap-3">
+                <div>
+                  <p class="kpi-label">Total payout</p>
+                  <p class="numeral text-2xl text-lab-violet mt-0.5" data-payout aria-live="polite">$695.45</p>
+                </div>
+                <div class="text-right">
+                  <p class="kpi-label">Profit</p>
+                  <p class="numeral text-base mt-0.5" data-towin>+$595.45</p>
+                </div>
               </div>
             </div>
+
+            <p class="mt-3 text-[11px] text-lab-mute">
+              Math runs in your browser. Nothing is logged. Demo only &mdash; no real wager is placed.
+            </p>
           </div>
         </div>
       </div>
@@ -126,7 +140,7 @@ import LabLayout from '../layouts/LabLayout.astro';
           <p class="eyebrow">Bench protocol</p>
           <h2 class="display text-2xl sm:text-3xl mt-2 max-w-2xl">A leg, taken from moneyline to staked dollar.</h2>
         </div>
-        <p class="hidden sm:block numeral text-xs text-lab-mute">Specimen 02 · Chiefs -3.5 @ -110</p>
+        <p class="hidden sm:block numeral text-xs text-lab-mute">Specimen 02 &middot; Chiefs -3.5 @ -110</p>
       </div>
 
       <ol class="mt-8 grid grid-cols-1 sm:grid-cols-4 gap-0 thin-border bg-white rounded overflow-hidden">
@@ -156,7 +170,7 @@ import LabLayout from '../layouts/LabLayout.astro';
         </li>
       </ol>
 
-      <p class="mt-4 text-xs text-lab-mute max-w-2xl">
+      <p class="mt-4 text-xs text-lab-slate max-w-2xl">
         Every leg ParlayLab logs walks this same four-step pipe. If the fair price &le; the implied price, the lab refuses to sign off on the slip.
       </p>
     </div>
@@ -169,10 +183,10 @@ import LabLayout from '../layouts/LabLayout.astro';
         <p class="eyebrow">Walkthroughs</p>
         <h2 class="display text-2xl sm:text-3xl mt-2">Three quick demos.</h2>
       </div>
-      <p class="hidden sm:block text-sm text-lab-mute numeral">03 / 03</p>
+      <p class="hidden sm:block text-sm text-lab-slate numeral">03 / 03</p>
     </div>
     <div class="mt-7 grid md:grid-cols-3 gap-5">
-      <a href="/builder" class="card p-5 group hover:border-lab-violet transition-colors">
+      <a href="/builder" class="card p-5 group hover:border-lab-violet hover:shadow-[0_4px_20px_-8px_rgba(124,58,237,0.2)] transition-all">
         <div class="flex items-center justify-between">
           <span class="tag text-lab-violet">Builder</span>
           <span class="numeral text-xs text-lab-mute">3 legs</span>
@@ -183,7 +197,7 @@ import LabLayout from '../layouts/LabLayout.astro';
         </p>
         <p class="mt-4 text-sm font-medium text-lab-violet group-hover:underline">Open the builder &rarr;</p>
       </a>
-      <a href="/ev" class="card p-5 group hover:border-lab-violet transition-colors">
+      <a href="/ev" class="card p-5 group hover:border-lab-violet hover:shadow-[0_4px_20px_-8px_rgba(124,58,237,0.2)] transition-all">
         <div class="flex items-center justify-between">
           <span class="tag text-lab-violet">EV Breakdown</span>
           <span class="numeral text-xs text-lab-mute">3 charts</span>
@@ -194,7 +208,7 @@ import LabLayout from '../layouts/LabLayout.astro';
         </p>
         <p class="mt-4 text-sm font-medium text-lab-violet group-hover:underline">View the breakdown &rarr;</p>
       </a>
-      <a href="/build" class="card p-5 group hover:border-lab-violet transition-colors">
+      <a href="/build" class="card p-5 group hover:border-lab-violet hover:shadow-[0_4px_20px_-8px_rgba(124,58,237,0.2)] transition-all">
         <div class="flex items-center justify-between">
           <span class="tag text-lab-violet">How it works</span>
           <span class="numeral text-xs text-lab-mute">4 steps</span>
@@ -207,4 +221,156 @@ import LabLayout from '../layouts/LabLayout.astro';
       </a>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var root = document.getElementById('parlay-calc');
+      if (!root) return;
+      var legsEl = root.querySelector('[data-legs]');
+      var addBtn = root.querySelector('[data-add]');
+      var stakeEl = root.querySelector('[data-stake]');
+      var combinedEl = root.querySelector('[data-combined]');
+      var decimalEl = root.querySelector('[data-decimal]');
+      var probEl = root.querySelector('[data-prob]');
+      var towinEl = root.querySelector('[data-towin]');
+      var payoutEl = root.querySelector('[data-payout]');
+
+      var MAX_LEGS = 10;
+      var MIN_LEGS = 1;
+      var seed = [-110, +110, -140];
+
+      function amToDec(am) {
+        if (!isFinite(am) || Math.abs(am) < 100) return null;
+        return am > 0 ? am / 100 + 1 : 100 / Math.abs(am) + 1;
+      }
+      function decToAm(dec) {
+        if (!isFinite(dec) || dec <= 1) return null;
+        return dec >= 2 ? Math.round((dec - 1) * 100) : Math.round(-100 / (dec - 1));
+      }
+      function fmtAm(am) {
+        if (am === null || !isFinite(am)) return '—';
+        return am > 0 ? '+' + am : '' + am;
+      }
+      function fmtMoney(n, signed) {
+        if (!isFinite(n)) return '$—';
+        var s = n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return (signed && n > 0 ? '+$' : '$') + s;
+      }
+      function parseOdds(str) {
+        var s = (str || '').toString().trim().replace(/^\+/, '');
+        if (!s) return NaN;
+        var n = Number(s);
+        return isFinite(n) ? n : NaN;
+      }
+
+      function makeRow(idx, value) {
+        var row = document.createElement('div');
+        row.className = 'group thin-border rounded bg-lab-paper px-3 py-2 flex items-center gap-2.5';
+        row.setAttribute('data-leg', '');
+        row.innerHTML =
+          '<span class="kpi-label whitespace-nowrap w-12" data-label>Leg ' + idx + '</span>' +
+          '<input type="text" inputmode="numeric" data-odds value="' + value + '" ' +
+          'class="numeral text-sm flex-1 min-w-0 bg-white px-2 py-1.5 rounded thin-border text-right focus:border-lab-violet" ' +
+          'aria-label="Leg ' + idx + ' American odds" />' +
+          '<span class="numeral text-xs text-lab-slate w-14 text-right tabular-nums" data-implied>—</span>' +
+          '<button type="button" data-remove ' +
+          'class="text-lab-mute hover:text-lab-negative text-xl leading-none w-6 h-6 flex items-center justify-center rounded transition-colors" ' +
+          'aria-label="Remove leg ' + idx + '">&times;</button>';
+        return row;
+      }
+
+      function renumber() {
+        var rows = legsEl.querySelectorAll('[data-leg]');
+        rows.forEach(function (r, i) {
+          var lbl = r.querySelector('[data-label]');
+          var inp = r.querySelector('[data-odds]');
+          var btn = r.querySelector('[data-remove]');
+          var n = i + 1;
+          if (lbl) lbl.textContent = 'Leg ' + n;
+          if (inp) inp.setAttribute('aria-label', 'Leg ' + n + ' American odds');
+          if (btn) btn.setAttribute('aria-label', 'Remove leg ' + n);
+        });
+        var canRemove = rows.length > MIN_LEGS;
+        rows.forEach(function (r) {
+          var btn = r.querySelector('[data-remove]');
+          if (!btn) return;
+          btn.disabled = !canRemove;
+          btn.style.visibility = canRemove ? 'visible' : 'hidden';
+        });
+        addBtn.disabled = rows.length >= MAX_LEGS;
+        addBtn.style.opacity = rows.length >= MAX_LEGS ? '0.4' : '1';
+      }
+
+      function recalc() {
+        var inputs = legsEl.querySelectorAll('[data-odds]');
+        var dec = 1;
+        var valid = 0;
+        inputs.forEach(function (inp) {
+          var v = parseOdds(inp.value);
+          var d = amToDec(v);
+          var impEl = inp.parentElement.querySelector('[data-implied]');
+          if (d) {
+            dec *= d;
+            valid++;
+            if (impEl) impEl.textContent = (100 / d).toFixed(1) + '%';
+            inp.classList.remove('text-lab-negative');
+          } else {
+            if (impEl) impEl.textContent = '—';
+            if (inp.value.trim() === '') inp.classList.remove('text-lab-negative');
+            else inp.classList.add('text-lab-negative');
+          }
+        });
+
+        if (valid < 1) {
+          combinedEl.textContent = '—';
+          decimalEl.textContent = '— dec';
+          probEl.textContent = '—';
+          towinEl.textContent = '$—';
+          payoutEl.textContent = '$—';
+          return;
+        }
+        var am = decToAm(dec);
+        var prob = 100 / dec;
+        var stake = Math.max(0, parseFloat(stakeEl.value) || 0);
+        var profit = stake * (dec - 1);
+        var payout = stake * dec;
+
+        combinedEl.textContent = fmtAm(am);
+        decimalEl.textContent = dec.toFixed(2) + ' dec';
+        probEl.textContent = prob.toFixed(1) + '%';
+        towinEl.textContent = fmtMoney(profit, true);
+        payoutEl.textContent = fmtMoney(payout, false);
+      }
+
+      // wire up
+      seed.forEach(function (v, i) {
+        legsEl.appendChild(makeRow(i + 1, v));
+      });
+      renumber();
+      recalc();
+
+      legsEl.addEventListener('input', recalc);
+      stakeEl.addEventListener('input', recalc);
+
+      legsEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-remove]');
+        if (!btn) return;
+        if (legsEl.querySelectorAll('[data-leg]').length <= MIN_LEGS) return;
+        btn.closest('[data-leg]').remove();
+        renumber();
+        recalc();
+      });
+
+      addBtn.addEventListener('click', function () {
+        var rows = legsEl.querySelectorAll('[data-leg]');
+        if (rows.length >= MAX_LEGS) return;
+        var n = rows.length + 1;
+        legsEl.appendChild(makeRow(n, -110));
+        renumber();
+        recalc();
+        var newInp = legsEl.querySelector('[data-leg]:last-child [data-odds]');
+        if (newInp) newInp.focus();
+      });
+    })();
+  </script>
 </LabLayout>

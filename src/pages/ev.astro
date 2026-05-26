@@ -62,7 +62,7 @@ const kpis = [
           {[0, 25, 50, 75, 100].map((v) => (
             <g>
               <line x1={140 + (v / 100) * 320} y1="20" x2={140 + (v / 100) * 320} y2="200" stroke="#f1f1f3" stroke-width="1"/>
-              <text x={140 + (v / 100) * 320} y="215" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">{v}%</text>
+              <text x={140 + (v / 100) * 320} y="215" font-family="JetBrains Mono" font-size="9" fill="#5b5b62" text-anchor="middle">{v}%</text>
             </g>
           ))}
           {legs.map((l, i) => {
@@ -93,16 +93,16 @@ const kpis = [
           {[0, 200, 400, 600].map((v, i) => (
             <g>
               <line x1="60" y1={200 - i * 50} x2="460" y2={200 - i * 50} stroke="#f1f1f3" stroke-width="1"/>
-              <text x="55" y={203 - i * 50} font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="end">${v}</text>
+              <text x="55" y={203 - i * 50} font-family="JetBrains Mono" font-size="9" fill="#5b5b62" text-anchor="end">${v}</text>
             </g>
           ))}
 
           <!-- Lose (common): height proxy = small payout 0, but show as bar at zero with thin label -->
           <g>
             <rect x="120" y="190" width="100" height="10" fill="#e5e7eb"/>
-            <text x="170" y="180" font-family="JetBrains Mono" font-size="10" fill="#71717a" text-anchor="middle">$0</text>
+            <text x="170" y="180" font-family="JetBrains Mono" font-size="10" fill="#5b5b62" text-anchor="middle">$0</text>
             <text x="170" y="220" font-family="Inter" font-size="11" fill="#52525b" text-anchor="middle">Any leg loses</text>
-            <text x="170" y="232" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">85.5% likely</text>
+            <text x="170" y="232" font-family="JetBrains Mono" font-size="9" fill="#5b5b62" text-anchor="middle">85.5% likely</text>
           </g>
 
           <!-- Win (rare): payout $695 -->
@@ -110,7 +110,7 @@ const kpis = [
             <rect x="280" y="26" width="100" height="174" fill="#7c3aed"/>
             <text x="330" y="20" font-family="JetBrains Mono" font-size="11" fill="#0a0a0a" text-anchor="middle" font-weight="600">$695</text>
             <text x="330" y="220" font-family="Inter" font-size="11" fill="#52525b" text-anchor="middle">All 3 hit</text>
-            <text x="330" y="232" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">14.5% likely</text>
+            <text x="330" y="232" font-family="JetBrains Mono" font-size="9" fill="#5b5b62" text-anchor="middle">14.5% likely</text>
           </g>
         </svg>
         <div class="thin-border-t mt-4 pt-3 grid grid-cols-2 gap-3 text-center">
@@ -140,7 +140,7 @@ const kpis = [
           {[0, 25, 50, 75, 100].map((v) => (
             <g>
               <line x1={180 + (v / 100) * 500} y1="20" x2={180 + (v / 100) * 500} y2="230" stroke="#f1f1f3" stroke-width="1"/>
-              <text x={180 + (v / 100) * 500} y="248" font-family="JetBrains Mono" font-size="9" fill="#71717a" text-anchor="middle">{v}%</text>
+              <text x={180 + (v / 100) * 500} y="248" font-family="JetBrains Mono" font-size="9" fill="#5b5b62" text-anchor="middle">{v}%</text>
             </g>
           ))}
           {legs.map((l, i) => {

@@ -5,8 +5,8 @@
   --color-lab-paper: #f4f4f5;
   --color-lab-ink: #0a0a0a;
   --color-lab-graphite: #1a1a1a;
-  --color-lab-slate: #52525b;
-  --color-lab-mute: #71717a;
+  --color-lab-slate: #3f3f46;
+  --color-lab-mute: #5b5b62;
   --color-lab-border: #e5e7eb;
   --color-lab-border-soft: #f1f1f3;
   --color-lab-violet: #7c3aed;
@@ -116,9 +116,14 @@ body {
   padding: 0.7rem 1.1rem;
   border-radius: 4px;
   border: 1px solid var(--color-lab-violet);
-  transition: background-color 120ms ease;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 4px 14px -6px rgba(124, 58, 237, 0.45);
+  transition: background-color 120ms ease, box-shadow 160ms ease, transform 120ms ease;
 }
-.btn-primary:hover { background: var(--color-lab-violet-deep); }
+.btn-primary:hover {
+  background: var(--color-lab-violet-deep);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 6px 20px -6px rgba(124, 58, 237, 0.55);
+}
+.btn-primary:active { transform: translateY(1px); }
 
 .btn-ghost {
   display: inline-flex;
@@ -130,9 +135,14 @@ body {
   padding: 0.7rem 1.1rem;
   border-radius: 4px;
   border: 1px solid var(--color-lab-border);
-  transition: border-color 120ms ease, color 120ms ease;
+  transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease;
 }
-.btn-ghost:hover { border-color: var(--color-lab-violet); color: var(--color-lab-violet); }
+.btn-ghost:hover {
+  border-color: var(--color-lab-violet);
+  color: var(--color-lab-violet);
+  background: var(--color-lab-violet-wash);
+}
+.btn-ghost:active { transform: translateY(1px); }
 
 .kpi-label {
   font-family: var(--font-mono);
